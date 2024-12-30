@@ -3,7 +3,16 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai.chat_models import AzureChatOpenAI
 
 from agents.state import AgentState, show_agent_reasoning
+import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
+
+azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+azure_deployment = os.getenv("AZURE_DEPLOYMENT")
+api_version = os.getenv("API_VERSION")
+model = os.getenv("MODEL")
 
 ##### Portfolio Management Agent #####
 def portfolio_management_agent(state: AgentState):
@@ -108,7 +117,12 @@ def portfolio_management_agent(state: AgentState):
         }
     )
     # Invoke the LLM
-    llm = AzureChatOpenAI(azure_endpoint="https://raghack-azureopenai.openai.azure.com/",azure_deployment="gpt-4o-mini", api_version="2024-08-01-preview", model="gpt-4o-mini")
+    llm = AzureChatOpenAI(
+    azure_endpoint=azure_endpoint,
+    azure_deployment=azure_deployment,
+    api_version=api_version,
+    model=model
+    )
     result = llm.invoke(prompt)
 
     # Create the portfolio management message

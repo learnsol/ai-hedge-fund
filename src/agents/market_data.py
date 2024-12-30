@@ -4,8 +4,23 @@ from agents.state import AgentState
 from tools.api import search_line_items, get_financial_metrics, get_insider_trades, get_market_cap, get_prices
 
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
-llm = AzureChatOpenAI(azure_endpoint="https://raghack-azureopenai.openai.azure.com/",azure_deployment="gpt-4o-mini", api_version="2024-08-01-preview", model="gpt-4o-mini")
+# Load environment variables from .env file
+load_dotenv()
+
+azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+azure_deployment = os.getenv("AZURE_DEPLOYMENT")
+api_version = os.getenv("API_VERSION")
+model = os.getenv("MODEL")
+
+llm = AzureChatOpenAI(
+    azure_endpoint=azure_endpoint,
+    azure_deployment=azure_deployment,
+    api_version=api_version,
+    model=model
+)
 
 def market_data_agent(state: AgentState):
     """Responsible for gathering and preprocessing market data"""

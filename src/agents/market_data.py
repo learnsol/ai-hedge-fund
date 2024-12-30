@@ -1,12 +1,11 @@
-
-from langchain_openai.chat_models import ChatOpenAI
+from langchain_openai.chat_models import AzureChatOpenAI
 
 from agents.state import AgentState
 from tools.api import search_line_items, get_financial_metrics, get_insider_trades, get_market_cap, get_prices
 
 from datetime import datetime
 
-llm = ChatOpenAI(model="gpt-4o")
+llm = AzureChatOpenAI(azure_endpoint="https://raghack-azureopenai.openai.azure.com/",azure_deployment="gpt-4o-mini", api_version="2024-08-01-preview", model="gpt-4o-mini")
 
 def market_data_agent(state: AgentState):
     """Responsible for gathering and preprocessing market data"""

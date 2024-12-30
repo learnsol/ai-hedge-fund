@@ -2,9 +2,9 @@ import os
 from typing import Dict, Any, List
 import pandas as pd
 import requests
-
+from dotenv import load_dotenv
 import requests
-
+load_dotenv()
 def get_financial_metrics(
     ticker: str,
     report_period: str,
